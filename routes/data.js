@@ -107,4 +107,27 @@ router.put('/:id', (req, res) => {
     })
 })
 
+router.delete('/:id', (req,res) => {
+    let id = req.params.id;
+    let response = {
+        success: false,
+        message: "",
+        data: {}
+    }
+
+    Data.findByIdAndRemove(id)
+    .then(data => {
+        response.success = true;
+        response.message = "data have been deleted"
+        response.data = data._id;
+        response.data.letter = data.letter;
+        response.data.frequency = data.frequency
+        res.status(201).json(response)
+    })
+    .catch(err => {
+        response.message = "failed delete data"
+        res.status(500).json(response)
+    })
+})
+
 module.exports = router
