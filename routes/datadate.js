@@ -131,4 +131,27 @@ router.delete('/:id', (req, res) => {
     })
 })
 
+router.get('/:id', (req, res) => {
+    let id = req.params.id;
+    let response = {
+        success: false,
+        message: "",
+        data: {}
+    };
+
+    Datadate.findById(id)
+    .then(data => {
+        response.success = true;
+        response.message = "data found";
+        response.data._id = data._id;
+        response.data.letter = data.letter;
+        response.data.frequency = data.frequency;
+        res.status(201).json(response)
+    })
+    .catch(err => {
+        response.message = "data can't be found";
+        res.status(500).json(err)
+    })
+})
+
 module.exports = router;
