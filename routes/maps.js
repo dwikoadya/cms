@@ -48,6 +48,34 @@ router.get('/', (req, res) => {
     })
 })
 
+router.put('/:id', (req, res) => {
+    let id = req.params.id;
+    let title = req.body.title;
+    let lat = req.body.lat;
+    let lng = req.body.lng;
+
+    let response = {
+        success: false,
+        message: "",
+        data: {}
+    }
+
+    Map.findByIdAndUpdate(id, { title, lat, lng }, { new: true })
+    .then(data => {
+        response.success = true;
+        response.message = "data have been updated";
+        response.data._id = data._id;
+        response.data.title = data.title;
+        response.data.lat = data.lat;
+        response.data.lng = data.lng;
+        res.status(201).json(response)
+    })
+    .catch(err => {
+        response.message = "failed update data"
+        res.status(500).json(err)
+    })
+})
+
 router.post('/', (req, res) => {
     let title = req.body.title;
     let lat = req.body.lat;
