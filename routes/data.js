@@ -82,4 +82,29 @@ router.post('/', (req, res) => {
     })
 })
 
+router.put('/:id', (req, res) => {
+    let id = req.params.id;
+    let letter = req.body.letter;
+    let frequency = req.body.frequency
+    let response = {
+        success: false,
+        message: "",
+        data: {}
+    }
+
+    Data.findByIdAndUpdate(id, {letter, frequency}, {new: true})
+    .then(data => {
+        response.success = true;
+        response.message = "data have been updated"
+        response.data._id = data._id;
+        response.data.letter = data.letter;
+        response.data.frequency = data.frequency
+        res.status(201).json(response)
+    })
+    .catch(err => {
+        response.message = "failed update data"
+        res.status(500).json(response)
+    })
+})
+
 module.exports = router
