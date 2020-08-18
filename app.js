@@ -7,7 +7,8 @@ var session = require('express-session')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var dataRouter = require('./routes/data')
+var dataRouter = require('./routes/data');
+var datadateRouter = require('./routes/datadate')
 
 mongoose.connect('mongodb://localhost/cmssdb', {useNewUrlParser: true, useUnifiedTopology: true});
 
@@ -27,5 +28,7 @@ app.use(session ({
 app.use('/', indexRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/data', dataRouter)
+app.use('/api/datadate', datadateRouter)
+
 
 module.exports = app;
