@@ -3,6 +3,25 @@ var router = express.Router();
 
 const Datadate = require('../models/datadate')
 
+router.get('/', (req, res) => {
+    let response = [];
+
+    Datadate.find()
+    .then(data => {
+        response = data.map(item => {
+            return {
+                _id: item._id,
+                letter: item.letter,
+                frequency: item.frequency
+            }
+        })
+        res.status(200).json(response)
+    })
+    .catch(err => {
+        res.status(500).json(err)
+    })
+})
+
 router.post('/', (req, res) => {
     let letter = req.body.letter
     let frequency = req.body.frequency
@@ -28,7 +47,7 @@ router.post('/', (req, res) => {
         res.status(201).json(response)
     })
     .catch(err => {
-        res.status(500).json(response)
+        res.status(500).json(err)
     })
 })
 
