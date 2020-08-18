@@ -1,10 +1,8 @@
 var mongoose = require('mongoose')
-var Schema = mongoose.schema;
 
-var data = new Schema({
+const dataSchema = new mongoose.Schema({
     letter: String,
-    frequency: Number,
-    token: String
+    frequency: Number
 })
 
-module.exports = mongoose.model('Data', data)
+module.exports = mongoose.model('Data', dataSchema)
