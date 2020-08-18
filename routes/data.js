@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var Data = require('../models/data');
-const data = require('../models/data');
 
 router.post('/search', (req, res) => {
     let letter = req.body.letter;
