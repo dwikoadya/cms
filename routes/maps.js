@@ -108,4 +108,29 @@ router.post('/', (req, res) => {
     })
 })
 
+router.delete('/:id', (req, res) => {
+    let id = req.params.id;
+
+    let response = {
+        success: false,
+        message: "",
+        data: {}
+    }
+
+    Map.findByIdAndRemove(id)
+    .then(data => {
+        response.success = true;
+        response.message = "data have been deleted";
+        response.data._id = data._id;
+        response.data.title = data.title;
+        response.data.lat = data.lat;
+        response.data.lng = data.lng;
+        res.status(201).json(response)
+    })
+    .catch(err => {
+        response.message = "failed delete data"
+        res.status(500).json(err)
+    })
+})
+
 module.exports = router;
