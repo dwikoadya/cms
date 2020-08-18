@@ -34,4 +34,24 @@ router.post('/', (req, res) => {
     })
 })
 
+router.get('/', (req, res) => {
+    let response = [];
+
+    Map.find()
+    .then(data => {
+        response = data.map(item => {
+            return {
+                _id: item._id,
+                title: item.title,
+                lat: item.lat,
+                lng: item.lng
+            }
+        })
+        res.status(200).json(response)
+    })
+    .catch(err => {
+        res.status(500).json(err)
+    })
+})
+
 module.exports = router;
