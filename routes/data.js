@@ -142,8 +142,8 @@ router.get('/:id', (req, res) => {
         response.success = true
         response.message = "data found"
         response.data._id = data._id
-        response.letter = data.letter
-        response.frequency = data.frequency
+        response.data.letter = data.letter
+        response.data.frequency = data.frequency
         res.status(201).json(response)
     })
     .catch(err => {
