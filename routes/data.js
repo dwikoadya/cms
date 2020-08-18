@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Data = require('../models/data');
+const data = require('../models/data');
 
 router.post('/search', (req, res) => {
     let letter = req.body.letter;
@@ -31,6 +32,25 @@ router.post('/search', (req, res) => {
         }).catch(err => {
             res.status(401).json(err)
         })
+})
+
+router.get('/', (req, res) => {
+    let response = [];
+
+    Data.find()
+    .then(data => {
+        response = data.map(item => {
+            return {
+                _id: item._id,
+                letter: item.letter,
+                frequency: item.frequency
+            }
+        })
+        res.status(200).json(response)
+    })
+    .catch(err => {
+        res.status(500).json(err)
+    })
 })
 
 router.post('/', (req, res) => {
